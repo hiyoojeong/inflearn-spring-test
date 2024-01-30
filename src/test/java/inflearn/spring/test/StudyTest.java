@@ -2,6 +2,8 @@ package inflearn.spring.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
+import java.util.function.Supplier;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,9 +20,9 @@ class StudyTest {
   @Test
   @DisplayName("스터디 만들기 ~~")
   void create1() {
-    Study study = new Study();
-    assertNotNull(study);
-    System.out.println("first create");
+    Study study = new Study(10);
+    assertEquals(StudyStatus.DRAFT, study.getStatus(),
+        () -> "스터디를 처음 만들었을 때 상태는 " + StudyStatus.DRAFT + "상태여야 한다.");
   }
 
   @Test
