@@ -7,11 +7,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
 
   @Test
+  @DisplayName("스터디 만들기 ~~")
   void create1() {
     Study study = new Study();
     assertNotNull(study);
@@ -19,11 +24,13 @@ class StudyTest {
   }
 
   @Test
+  @DisplayName("스터디 만들기 !!")
   void create2() {
     System.out.println("second create");
   }
 
   @Test
+  @DisplayName("스터디 만들기 ㅠㅠ")
   @Disabled
   void create3() {
     System.out.println("third create");
