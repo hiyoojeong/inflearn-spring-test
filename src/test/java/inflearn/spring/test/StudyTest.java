@@ -1,9 +1,8 @@
 package inflearn.spring.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import java.time.Duration;
-import java.util.function.Supplier;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,20 +12,28 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
 
   @Test
   @DisplayName("스터디 만들기 ~~")
+  @EnabledOnOs({OS.MAC, OS.LINUX})
   void create1() {
-    Study study = new Study(10);
-    assertEquals(StudyStatus.DRAFT, study.getStatus(),
-        () -> "스터디를 처음 만들었을 때 상태는 " + StudyStatus.DRAFT + "상태여야 한다.");
+    String test_env = System.getenv("TEST_ENV");
+    System.out.println(test_env);
+    assumeTrue("LOCAL".equalsIgnoreCase(test_env));
+
+    Study actual = new Study(10);
+    assertThat(actual.getLimit()).isGreaterThan(0);
   }
 
   @Test
   @DisplayName("스터디 만들기 !!")
+  @DisabledOnOs(OS.MAC)
   void create2() {
     System.out.println("second create");
   }
