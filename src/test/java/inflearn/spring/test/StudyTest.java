@@ -1,36 +1,27 @@
 package inflearn.spring.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
 
-  @Test
+  @FastTest
   @DisplayName("스터디 만들기 fast")
-  @Tag("fast")
   void create1() {
     Study actual = new Study(10);
     assertThat(actual.getLimit()).isGreaterThan(0);
   }
 
-  @Test
+  @SlowTest
   @DisplayName("스터디 만들기 slow")
-  @Tag("slow")
   void create2() {
     System.out.println("second create");
   }
