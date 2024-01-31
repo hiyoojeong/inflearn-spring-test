@@ -10,10 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
@@ -26,10 +30,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
   int value = 1;
 
+  @Order(2)
   @FastTest
   @DisplayName("스터디 만들기 fast")
   void create1() {
@@ -39,6 +45,7 @@ class StudyTest {
     assertThat(actual.getLimit()).isGreaterThan(0);
   }
 
+  @Order(1)
   @SlowTest
   @DisplayName("스터디 만들기 slow")
   void create2() {
@@ -47,6 +54,7 @@ class StudyTest {
     System.out.println("second create");
   }
 
+  @Order(3)
   @DisplayName("스터디 만들기")
   @RepeatedTest(value = 10, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
   void repeatTest(RepetitionInfo repetitionInfo) {
@@ -54,6 +62,7 @@ class StudyTest {
         + repetitionInfo.getTotalRepetitions());
   }
 
+  @Order(4)
   @DisplayName("스터디 만들기")
   @ParameterizedTest(name = "{index} {displayName} message={0}")
   @CsvSource({"10, '자바 스터디'", "20, '스프링'"})
