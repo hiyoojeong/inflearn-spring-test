@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.EnabledOnOs;
@@ -20,29 +21,18 @@ import org.junit.jupiter.api.condition.OS;
 class StudyTest {
 
   @Test
-  @DisplayName("스터디 만들기 ~~")
-  @EnabledOnOs({OS.MAC, OS.LINUX})
+  @DisplayName("스터디 만들기 fast")
+  @Tag("fast")
   void create1() {
-    String test_env = System.getenv("TEST_ENV");
-    System.out.println(test_env);
-    assumeTrue("LOCAL".equalsIgnoreCase(test_env));
-
     Study actual = new Study(10);
     assertThat(actual.getLimit()).isGreaterThan(0);
   }
 
   @Test
-  @DisplayName("스터디 만들기 !!")
-  @DisabledOnOs(OS.MAC)
+  @DisplayName("스터디 만들기 slow")
+  @Tag("slow")
   void create2() {
     System.out.println("second create");
-  }
-
-  @Test
-  @DisplayName("스터디 만들기 ㅠㅠ")
-  @Disabled
-  void create3() {
-    System.out.println("third create");
   }
 
   // 모든 테스트를 실행하기 이전에 딱 한번만 호출된다.
