@@ -22,6 +22,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
 import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
@@ -31,11 +32,13 @@ import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 import org.junit.jupiter.params.provider.CsvSource;
 
-@ExtendWith(FindSlowExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
   int value = 1;
+
+  @RegisterExtension
+  static FindSlowExtension findSlowExtension = new FindSlowExtension(1000L);
 
   @Order(2)
   @FastTest

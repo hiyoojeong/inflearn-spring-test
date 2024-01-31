@@ -9,7 +9,11 @@ import org.junit.jupiter.api.extension.ExtensionContext.Store;
 
 public class FindSlowExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-  private static final long THRESHOLD = 1000L;
+  private long THRESHOLD;
+
+  public FindSlowExtension(long THRESHOLD) {
+    this.THRESHOLD = THRESHOLD;
+  }
 
   @Override
   public void beforeTestExecution(ExtensionContext context) throws Exception {
