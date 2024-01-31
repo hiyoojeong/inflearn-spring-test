@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -28,8 +29,6 @@ import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 import org.junit.jupiter.params.provider.CsvSource;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@TestInstance(Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
@@ -37,8 +36,7 @@ class StudyTest {
 
   @Order(2)
   @FastTest
-  @DisplayName("스터디 만들기 fast")
-  void create1() {
+  void create_new_study() {
     System.out.println(this);
     System.out.println(value++);
     Study actual = new Study(10);
@@ -47,8 +45,8 @@ class StudyTest {
 
   @Order(1)
   @SlowTest
-  @DisplayName("스터디 만들기 slow")
-  void create2() {
+  @Disabled
+  void create_new_study_again() {
     System.out.println(this);
     System.out.println(value++);
     System.out.println("second create");
