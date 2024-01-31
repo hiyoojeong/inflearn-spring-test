@@ -12,6 +12,8 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
@@ -19,17 +21,20 @@ import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
 import org.junit.jupiter.params.aggregator.ArgumentsAggregationException;
 import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
-import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestInstance(Lifecycle.PER_CLASS)
 class StudyTest {
+
+  int value = 1;
 
   @FastTest
   @DisplayName("스터디 만들기 fast")
   void create1() {
+    System.out.println(this);
+    System.out.println(value++);
     Study actual = new Study(10);
     assertThat(actual.getLimit()).isGreaterThan(0);
   }
@@ -37,6 +42,8 @@ class StudyTest {
   @SlowTest
   @DisplayName("스터디 만들기 slow")
   void create2() {
+    System.out.println(this);
+    System.out.println(value++);
     System.out.println("second create");
   }
 
@@ -75,13 +82,13 @@ class StudyTest {
 
   // 모든 테스트를 실행하기 이전에 딱 한번만 호출된다.
   @BeforeAll
-  static void beforeAll() {
+  void beforeAll() {
     System.out.println("Before All");
   }
 
   // 모든 테스트를 실행한 이후에 딱 한번만 호출된다.
   @AfterAll
-  static void afterAll() {
+  void afterAll() {
     System.out.println("After All");
   }
 
